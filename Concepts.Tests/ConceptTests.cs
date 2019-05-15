@@ -28,7 +28,21 @@ namespace Concepts.Tests
 
             using (var container = this.Concept.Build())
             {
+                var fixture = container.Resolve<IFixture>();
+
                 Assert.AreEqual("Hello World", container.Resolve<IFixture>().GetCombinedStrings());
+            }
+        }
+
+        [TestMethod]
+        public void ShouldSubOutServicesAsSingletons()
+        {
+            Assert.AreSame(this.Concept.Mock<IStringService>(), this.Concept.Mock<IStringService>());
+
+            using (var container = this.Concept.Build())
+            {
+                Assert.AreSame(container.Resolve<IStringService>(), container.Resolve<IStringService>());
+                Assert.AreSame(this.Concept.Mock<IStringService>().Object, container.Resolve<IStringService>());
             }
         }
     }

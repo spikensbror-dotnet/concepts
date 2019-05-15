@@ -13,16 +13,6 @@
             this.otherStringService = otherStringService;
         }
 
-        public void DoSomething(string key)
-        {
-            //
-        }
-
-        public void DoSomething(string key, int value)
-        {
-            //
-        }
-
         public string GetCombinedStrings()
         {
             return $"{this.stringService.GetString()} {this.otherStringService.GetString()}";
