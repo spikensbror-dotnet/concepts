@@ -18,8 +18,9 @@ steps:
   inputs:
     testSelector: 'testAssemblies'
     testAssemblyVer2: '*/*.Tests.dll'
-    searchFolder: 'Concepts.Tests/bin/Release/'
+    searchFolder: '$(System.DefaultWorkingDirectory)'
     codeCoverageEnabled: true
+    runSettingsFile: 'Production.runsettings'
 
 - task: DotNetCoreCLI@2
   name: 'Pack'
