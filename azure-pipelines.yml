@@ -18,7 +18,7 @@ steps:
   name: 'Tests'
   inputs:
     testSelector: 'testAssemblies'
-    testAssemblyVer2: '*/*.Tests.dll'
+    testAssemblyVer2: '*/bin/*/*/*.Tests.dll'
     searchFolder: '$(System.DefaultWorkingDirectory)'
     codeCoverageEnabled: true
     runSettingsFile: 'Production.runsettings'
