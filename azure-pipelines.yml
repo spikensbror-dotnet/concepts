@@ -23,17 +23,17 @@ steps:
     codeCoverageEnabled: true
     runSettingsFile: 'Production.runsettings'
 
-- task: DotNetCoreCLI@2
-  name: 'Pack'
+- task: NuGetCommand@2
   inputs:
     command: 'pack'
     feedsToUse: 'select'
     packagesToPack: '**/*.csproj'
     configuration: 'Release'
+    packDestination: '$(Build.ArtifactStagingDirectory)/packages'
     versioningScheme: 'byBuildNumber'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/packages'
+    ArtifactName: 'packages'
     publishLocation: 'Container'
