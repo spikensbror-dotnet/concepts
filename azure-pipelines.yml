@@ -20,6 +20,7 @@ steps:
     testAssemblyVer2: '**/bin/*/*/*.Tests.dll'
     searchFolder: '$(System.DefaultWorkingDirectory)'
     codeCoverageEnabled: true
+    runSettingsFile: 'Production.runsettings'
 
 - task: DotNetCoreCLI@2
   name: 'Pack'
