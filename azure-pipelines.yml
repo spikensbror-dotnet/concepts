@@ -5,6 +5,11 @@ steps:
 
 - checkout: self
 
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: 
+    checkLatest: true
+
 - task: DotNetCoreCLI@2
   name: 'Build'
   inputs:
