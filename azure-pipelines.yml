@@ -17,7 +17,7 @@ steps:
 - task: VSTest@2
   inputs:
     testSelector: 'testAssemblies'
-    testAssemblyVer2: '*.Tests.dll'
+    testAssemblyVer2: '*/*.Tests.dll'
     searchFolder: 'Concepts.Tests/bin/Release/'
     codeCoverageEnabled: true
 
