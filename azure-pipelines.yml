@@ -17,9 +17,7 @@ steps:
 - task: VSTest@2
   inputs:
     testSelector: 'testAssemblies'
-    testAssemblyVer2: '**\*.Tests*.dll
-      !**\*TestAdapter.dll
-      !**\obj\**'
+    testAssemblyVer2: '**/bin/*/*/*.Tests.dll'
     searchFolder: '$(System.DefaultWorkingDirectory)'
     codeCoverageEnabled: true
 
