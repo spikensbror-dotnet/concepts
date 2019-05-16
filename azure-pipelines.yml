@@ -15,6 +15,7 @@ steps:
     versioningScheme: 'off'
 
 - task: VSTest@2
+  name: 'Tests'
   inputs:
     testSelector: 'testAssemblies'
     testAssemblyVer2: '*/*.Tests.dll'
