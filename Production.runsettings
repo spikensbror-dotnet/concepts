@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <ModulePaths>
+    <Include>
+      <ModulePath>Concepts.dll</ModulePath>
+      <ModulePath>Concepts.Tests.dll</ModulePath>
+    </Include>
+  </ModulePaths>
+</RunSettings>
