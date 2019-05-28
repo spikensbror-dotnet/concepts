@@ -2,6 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Kimmy Andersson</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/spikensbror-dotnet/concepts</PackageProjectUrl>
+    <Description>Concepts is a lightweight Moq enhancement for Autofac-powered testing as well as other helper extensions.</Description>
   </PropertyGroup>
 
   <ItemGroup>
