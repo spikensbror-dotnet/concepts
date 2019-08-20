@@ -1,11 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Authors>Kimmy Andersson</Authors>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/spikensbror-dotnet/concepts</PackageProjectUrl>
+    <Authors>spikensbror</Authors>
     <Description>Concepts is a lightweight Moq enhancement for Autofac-powered testing as well as other helper extensions.</Description>
+    <PackageProjectUrl>https://github.com/spikensbror-dotnet/concepts</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/spikensbror-dotnet/concepts</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

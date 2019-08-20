@@ -1,19 +1,33 @@
 using Autofac;
 using Concepts.Tests.Fixtures;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 namespace Concepts.Tests
 {
     [TestClass]
-    public class ConceptTests : IntegrationTest
+    public class ConceptTests
     {
+        private Concept concept;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            this.concept = new Concept();
+
+            this.concept.Builder.RegisterType<Fixture>()
+                .As<IFixture>()
+                .SingleInstance();
+
+            this.concept.Builder.RegisterType<StringService>()
+                .As<IStringService>()
+                .As<IOtherStringService>()
+                .SingleInstance();
+        }
+
         [TestMethod]
         public void ShouldDisplayNormalBehaviorWhenNotMocked()
         {
-            using (var container = this.Concept.Build())
+            using (var container = this.concept.Build())
             {
                 Assert.AreEqual("Hello Hello", container.Resolve<IFixture>().GetCombinedStrings());
             }
@@ -22,11 +36,11 @@ namespace Concepts.Tests
         [TestMethod]
         public void ShouldBeAbleToStubOutServices()
         {
-            this.Concept.Mock<IOtherStringService>()
+            this.concept.Mock<IOtherStringService>()
                 .Setup(oss => oss.GetString())
                 .Returns("World");
 
-            using (var container = this.Concept.Build())
+            using (var container = this.concept.Build())
             {
                 var fixture = container.Resolve<IFixture>();
 
@@ -35,14 +49,14 @@ namespace Concepts.Tests
         }
 
         [TestMethod]
-        public void ShouldSubOutServicesAsSingletons()
+        public void ShouldStubOutServicesAsSingletons()
         {
-            Assert.AreSame(this.Concept.Mock<IStringService>(), this.Concept.Mock<IStringService>());
+            Assert.AreSame(this.concept.Mock<IStringService>(), this.concept.Mock<IStringService>());
 
-            using (var container = this.Concept.Build())
+            using (var container = this.concept.Build())
             {
                 Assert.AreSame(container.Resolve<IStringService>(), container.Resolve<IStringService>());
-                Assert.AreSame(this.Concept.Mock<IStringService>().Object, container.Resolve<IStringService>());
+                Assert.AreSame(this.concept.Mock<IStringService>().Object, container.Resolve<IStringService>());
             }
         }
     }

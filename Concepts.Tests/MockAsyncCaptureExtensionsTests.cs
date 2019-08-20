@@ -1,5 +1,4 @@
-﻿using Autofac;
-using Concepts.Tests.Fixtures;
+﻿using Concepts.Tests.Fixtures;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 namespace Concepts.Tests
 {
     [TestClass]
-    public class MockAsyncCaptureExtensionsTests : IntegrationTest
+    public class MockAsyncCaptureExtensionsTests
     {
         [TestMethod]
         public async Task ShouldBeAbleToCaptureSingleParameterMethodArguments()
@@ -21,20 +20,17 @@ namespace Concepts.Tests
                 "third",
             };
 
+            var mock = new Mock<ICaptureFixture>();
+
             var results = new List<string>();
-            this.Concept.Mock<ICaptureFixture>()
+            mock
                 .Setup(f => f.DoSomethingAsync(It.IsAny<string>()))
                 .Capture(results)
                 .Returns(Task.CompletedTask);
 
-            using (var container = this.Concept.Build())
+            foreach (var key in expected)
             {
-                var fixture = container.Resolve<ICaptureFixture>();
-
-                foreach (var key in expected)
-                {
-                    await fixture.DoSomethingAsync(key);
-                }
+                await mock.Object.DoSomethingAsync(key);
             }
 
             CollectionAssert.AreEqual(expected, results);
@@ -50,20 +46,17 @@ namespace Concepts.Tests
                 new Tuple<string, int>("third", 44),
             };
 
+            var mock = new Mock<ICaptureFixture>();
+
             var results = new List<Tuple<string, int>>();
-            this.Concept.Mock<ICaptureFixture>()
+            mock
                 .Setup(f => f.DoSomethingAsync(It.IsAny<string>(), It.IsAny<int>()))
                 .Capture(results)
                 .Returns(Task.CompletedTask);
 
-            using (var container = this.Concept.Build())
+            foreach (var tuple in expected)
             {
-                var fixture = container.Resolve<ICaptureFixture>();
-
-                foreach (var tuple in expected)
-                {
-                    await fixture.DoSomethingAsync(tuple.Item1, tuple.Item2);
-                }
+                await mock.Object.DoSomethingAsync(tuple.Item1, tuple.Item2);
             }
 
             CollectionAssert.AreEqual(expected, results);
@@ -86,20 +79,17 @@ namespace Concepts.Tests
                 44
             };
 
+            var mock = new Mock<ICaptureFixture>();
+
             var stringResults = new List<string>();
             var intResults = new List<int>();
-            this.Concept.Mock<ICaptureFixture>()
+            mock
                 .Setup(f => f.DoSomethingAsync(It.IsAny<string>(), It.IsAny<int>()))
                 .Capture(stringResults, intResults);
 
-            using (var container = this.Concept.Build())
+            for (var i = 0; i < expectedStrings.Length; i++)
             {
-                var fixture = container.Resolve<ICaptureFixture>();
-
-                for (var i = 0; i < expectedStrings.Length; i++)
-                {
-                    fixture.DoSomethingAsync(expectedStrings[i], expectedInts[i]);
-                }
+                mock.Object.DoSomethingAsync(expectedStrings[i], expectedInts[i]);
             }
 
             CollectionAssert.AreEqual(expectedStrings, stringResults);
